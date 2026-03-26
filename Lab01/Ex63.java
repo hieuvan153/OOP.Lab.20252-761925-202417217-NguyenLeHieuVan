@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Exercise6_3 {
+public class Ex63 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhap n: ");
@@ -23,7 +23,7 @@ public class Exercise6_3 {
             }
             System.out.print("\n");
         }  
-        
+
         sc.close();
         System.exit(0);
     }
