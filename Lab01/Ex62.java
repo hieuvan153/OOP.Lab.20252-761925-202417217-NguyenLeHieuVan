@@ -12,5 +12,8 @@ public class Ex62 {
         double dHeight = keyboard.nextDouble();
 
         System.out.println("Mrs/Mr. " + strName + ", " + iAge + " years old. " + "Your height is " + dHeight + ".");
+
+        keyboard.close();
+        System.exit(0);
     }
 }
