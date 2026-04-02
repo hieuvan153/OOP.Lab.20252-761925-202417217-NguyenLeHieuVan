@@ -58,5 +58,15 @@ public class Aims {
 		System.out.println("Total Cost is: ");
 		System.out.printf("%.2f", anOrder.totalCost());
 		System.out.println("");
+		
+		anOrder.removeDigitalVideoDisc(dvd21);
+		System.out.println("Total Cost is: ");
+		System.out.printf("%.2f", anOrder.totalCost());
+		System.out.println("");
+		
+		anOrder.removeDigitalVideoDisc(dvd15);
+		System.out.println("Total Cost is: ");
+		System.out.printf("%.2f", anOrder.totalCost());
+		System.out.println("");
 	}
 }
