@@ -4,3 +4,5 @@ JAVA does not allow you to create a constructor method to build a DVD by title t
 Part 14: Working with method overloading
 I prefer using the arbitrary number of arguments (Varargs, denoted by ...) in this case. Varargs provides a much cleaner and more flexible syntax for the caller. If we use an array parameter, we are forced to explicitly create an array instance before passing it (e.g., cart.addDigitalVideoDisc(new DigitalVideoDisc[]{dvd1, dvd2})). With Varargs, the compiler handles the array creation under the hood, allowing us to simply pass a comma-separated list of objects (e.g., cart.addDigitalVideoDisc(dvd1, dvd2)), making the code much more readable.
 
+Part 15: Passing Parameter
+Java is a Pass by Value programming language. However, when passing objects to a method, Java passes the value of the reference (the memory address) to that object, not the actual object itself.

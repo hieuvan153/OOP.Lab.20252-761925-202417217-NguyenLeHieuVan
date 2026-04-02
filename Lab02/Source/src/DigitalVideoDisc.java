@@ -21,6 +21,9 @@ public class DigitalVideoDisc {
 	public double getCost() {
 		return cost;
 	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	
 	public DigitalVideoDisc(String title) {
 		super();
