@@ -1,0 +1,3 @@
+Part 10: Create Constructor Method
+JAVA does not allow you to create a constructor method to build a DVD by title then create a constructor method to build a DVD by category. Java differentiates overloaded methods based on the number, data types, or order of the input parameters (which make up the Method Signature), not by their variable names. Both of the mentioned constructors have the exact same signature: they both take a single String parameter. Therefore, the Java Compiler cannot distinguish between them and will throw a "Duplicate method" compile-time error.
+
