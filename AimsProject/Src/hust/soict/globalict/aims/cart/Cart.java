@@ -42,7 +42,7 @@ public class Cart {
 	public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
 		boolean found = false;
 		for (int i = 0; i < qtyOrdered; i++) {
-			if (itemsOrdered[i] == disc) {
+			if (itemsOrdered[i].equals(disc)) {
 				for (int j = i; j < qtyOrdered - 1; j++) {
 					itemsOrdered[j] = itemsOrdered[j + 1];
 				}
