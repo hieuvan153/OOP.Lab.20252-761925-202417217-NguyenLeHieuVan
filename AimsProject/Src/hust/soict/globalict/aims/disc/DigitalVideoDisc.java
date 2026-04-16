@@ -64,4 +64,16 @@ public class DigitalVideoDisc {
 		nbDigitalVideoDiscs++;
 		this.id = nbDigitalVideoDiscs;
 	}
+
+	@Override
+	public String toString() {
+		return title + " - " + category + " - " + director + " - " + length + ": " + cost + " $";
+	}
+
+	public boolean isMatch(String searchTitle) {
+		if (this.title == null || searchTitle == null) {
+			return false;
+		}
+		return this.title.equalsIgnoreCase(searchTitle);
+	}
 }

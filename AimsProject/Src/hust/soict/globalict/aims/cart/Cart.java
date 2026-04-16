@@ -58,6 +58,16 @@ public class Cart {
 			System.out.println("The disc was not found in the cart");
 		}
 	}
+
+	public void print() {
+		System.out.println("***********************************************CART***********************************************");
+		System.out.println("Ordered Items:");
+		for (int i = 0; i < qtyOrdered; i++) {
+			System.out.println((i + 1) + ". DVD - " + itemsOrdered[i].toString());
+		}
+		System.out.println("Total cost: " + totalCost() + " $");
+		System.out.println("**************************************************************************************************");
+	}
 	
 	public double totalCost() {
 		double res = 0.0;
@@ -65,5 +75,31 @@ public class Cart {
 			res += itemsOrdered[i].getCost();
 		}
 		return res;
+	}
+
+	public void searchByID(int id) {
+		boolean found = false;
+		for (int i = 0; i < qtyOrdered; i++) {
+			if (itemsOrdered[i].getId() == id) {
+				found = true;
+				System.out.println(id + ". DVD - " + itemsOrdered[i].toString());
+			}
+		}
+		if (!found) {
+			System.out.println("The disc was not found in the cart");
+		}
+	}
+
+	public void searchByTitle(String searchTitle) {
+		boolean found = false;
+		for (int i = 0; i < qtyOrdered; i++) {
+			if (itemsOrdered[i].isMatch(searchTitle)) {
+				found = true;
+				System.out.println("DVD - " + itemsOrdered[i].toString());
+			}
+		}
+		if (!found) {
+			System.out.println("The disc was not found in the cart");
+		}
 	}
 }
