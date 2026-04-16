@@ -1,6 +1,6 @@
-package hust.soict.globalict.media;
+package hust.soict.globalict.aims.media;
 
-public class DigitalVideoDisc extends Disc {
+public class DigitalVideoDisc extends Disc implements Playable {
 	private static int nbDigitalVideoDiscs = 0;
 	
 	public DigitalVideoDisc(String title) {
@@ -26,5 +26,16 @@ public class DigitalVideoDisc extends Disc {
 			return false;
 		}
 		return getTitle().equalsIgnoreCase(searchTitle);
+	}
+
+	@Override
+	public void play() {
+		if (this.getLength() <= 0) {
+			System.out.println("This DVD can't be played");
+			return;
+		} else {
+			System.out.println("Playing DVD: " + this.getTitle());
+			System.out.println("DVD Length: " + this.getLength());
+		}
 	}
 }

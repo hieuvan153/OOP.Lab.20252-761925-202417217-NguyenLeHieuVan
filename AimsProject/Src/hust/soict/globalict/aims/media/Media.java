@@ -1,4 +1,4 @@
-package hust.soict.globalict.media;
+package hust.soict.globalict.aims.media;
 
 public abstract class Media {
     private int id;

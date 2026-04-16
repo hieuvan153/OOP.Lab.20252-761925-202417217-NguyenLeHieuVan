@@ -1,4 +1,4 @@
-package hust.soict.globalict.media;
+package hust.soict.globalict.aims.media;
 import java.util.ArrayList;
 import java.util.List;
 
