@@ -1,7 +1,9 @@
 package hust.soict.globalict.aims.cart;
 import hust.soict.globalict.aims.media.Media;
+import hust.soict.globalict.aims.media.MediaComparatorByCostTitle;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Cart {
 	public static final int MAX_NUMBERS_ORDERED = 20;
@@ -57,16 +59,24 @@ public class Cart {
 		}
 	}
 
-	public void searchByTitle(String searchTitle) {
-		boolean found = false;
-		for (Media media : itemsOrdered) {
-			if (media.getTitle().equalsIgnoreCase(searchTitle)) {
-				found = true;
-				System.out.println("Media - " + media.toString());
+	public Media searchByTitle(String title) {
+		for (Media m: itemsOrdered) {
+			if (m.getTitle().equalsIgnoreCase(title)) {
+				return m;
 			}
 		}
-		if (!found) {
-			System.out.println("The media was not found in the cart");
-		}
+		return null;
+	}
+
+	public void sortByCost() {
+		Collections.sort(itemsOrdered, Media.COMPARE_BY_COST_TITLE);
+	}
+
+	public void sortByTitle() {
+		Collections.sort(itemsOrdered, Media.COMPARE_BY_TITLE_COST);
+	}
+
+	public int getSize() {
+		return itemsOrdered.size();
 	}
 }

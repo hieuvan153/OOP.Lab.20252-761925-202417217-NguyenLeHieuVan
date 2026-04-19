@@ -50,4 +50,28 @@ public class Store {
         this.removeMedia(media1);
         this.removeMedia(media2);
     }
+
+    public Media searchByTitle(String title) {
+        for (Media m: itemsInStore) {
+            if (m.getTitle().equalsIgnoreCase(title)) {
+                return m;
+            }
+        }
+        return null;
+    }
+
+    public void print() {
+        System.out.println("Items in Store:");
+        if (itemsInStore.isEmpty()) {
+            System.out.println("The store is empty");
+        } else {
+            for (int i = 0; i < itemsInStore.size(); i++) {
+                System.out.println((i + 1) + ". " + itemsInStore.get((i)).toString());
+            }
+        }
+    }
+
+    public int getSize() {
+        return itemsInStore.size();
+    }
 }

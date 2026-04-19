@@ -15,7 +15,8 @@ public class CartTest {
         cart.print();
         cart.searchByID(2);
         cart.searchByID(5);
-        cart.searchByTitle("Star Wars");
-        cart.searchByTitle("Titanic");
+        System.out.println(cart.searchByTitle("Star Wars"));
+        System.out.println(cart.searchByTitle("Titanic"));
+        System.out.println(cart.searchByTitle("Unknown"));
     }
 }
