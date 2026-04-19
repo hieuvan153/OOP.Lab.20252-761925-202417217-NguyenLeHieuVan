@@ -21,13 +21,6 @@ public class DigitalVideoDisc extends Disc implements Playable {
 		return getTitle() + " - " + getCategory() + " - " + getDirector() + " - " + getLength() + ": " + getCost() + " $";
 	}
 
-	public boolean isMatch(String searchTitle) {
-		if (getTitle() == null || searchTitle == null) {
-			return false;
-		}
-		return getTitle().equalsIgnoreCase(searchTitle);
-	}
-
 	@Override
 	public void play() {
 		if (this.getLength() <= 0) {
