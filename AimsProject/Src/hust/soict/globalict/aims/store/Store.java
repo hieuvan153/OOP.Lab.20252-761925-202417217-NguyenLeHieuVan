@@ -74,4 +74,8 @@ public class Store {
     public int getSize() {
         return itemsInStore.size();
     }
+
+    public ArrayList<Media> getItemsInStore() {
+        return itemsInStore;
+    }
 }
