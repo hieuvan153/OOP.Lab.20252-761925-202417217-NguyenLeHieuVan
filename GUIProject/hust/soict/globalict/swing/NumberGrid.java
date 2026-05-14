@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class NumberGrid extends JFrame {
     private JButton[] btnNumbers = new JButton[10];
@@ -43,5 +45,26 @@ public class NumberGrid extends JFrame {
         btnReset = new JButton("C");
         panelButtons.add(btnReset);
         btnReset.addActionListener(btnListener);
+    }
+
+    private class ButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String button = e.getActionCommand();
+            if (button.charAt(0) >= '0' && button.charAt(0) <= '9') {
+                tfDisplay.setText(tfDisplay.getText() + button);
+            } else if (button.equals("DEL")) {
+                String curText = tfDisplay.getText();
+                if ((int)curText.length() > 0) {
+                    tfDisplay.setText(curText.substring(0, curText.length() - 1));
+                }
+            } else {
+                tfDisplay.setText("");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new NumberGrid();
     }
 }
