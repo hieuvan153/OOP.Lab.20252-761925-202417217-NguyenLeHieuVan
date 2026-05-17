@@ -39,12 +39,41 @@ public class StoreManagerScreen extends JFrame {
 
     JMenuBar createMenuBar() {
         JMenu menu = new JMenu("Options");
-        menu.add(new JMenuItem("View store"));
+
+        JMenuItem viewStoreMenu = new JMenuItem("View store");
+        menu.add(viewStoreMenu);
 
         JMenu smUpdateStore = new JMenu("Update Store");
-        smUpdateStore.add(new JMenuItem("Add Book"));
-        smUpdateStore.add(new JMenuItem("Add CD"));
-        smUpdateStore.add(new JMenuItem("Add DVD"));
+        JMenuItem addBookMenu = new JMenuItem("Add Book");
+        addBookMenu.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                new AddBookToStoreScreen(store);
+                dispose();
+            }
+        });
+        smUpdateStore.add(addBookMenu);
+
+        JMenuItem addCDMenu = new JMenuItem("Add CD");
+        addCDMenu.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                new AddCompactDiscToStoreScreen(store);
+                dispose();
+            }
+        });
+        smUpdateStore.add(addCDMenu);
+
+        JMenuItem addDVDMenu = new JMenuItem("Add DVD");
+        addDVDMenu.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                new AddDigitalVideoDiscToStoreScreen(store);
+                dispose();
+            }
+        });
+        smUpdateStore.add(addDVDMenu);
+
         menu.add(smUpdateStore);
 
         JMenuBar menuBar = new JMenuBar();
@@ -89,15 +118,12 @@ public class StoreManagerScreen extends JFrame {
 
         store.addMedia(new DigitalVideoDisc("Harry Potter and the Philosopher's Stone (2001)", "Fantasy", "Chris Columbus", 152, 3.0f));
         store.addMedia(new DigitalVideoDisc("Harry Potter and the Chamber of Secrets (2002)", "Fantasy", "Chris Columbus", 161, 3.5f));
-        store.addMedia(new DigitalVideoDisc("Harry Potter and the Prisoner of Azkaban (2004)", "Fantasy", "Alfonso Cuarón", 142, 5.0f));
-        store.addMedia(new DigitalVideoDisc("Harry Potter and the Goblet of Fire (2005)", "Fantasy", "Mike Newell", 157, 4.5f));
 
         store.addMedia(new CompactDisc(1, "Fetch the Bolt Cutters", "Music", "Fiona Apple", "Unknown", 10.39f));
         store.addMedia(new CompactDisc(2, "Future Nostalgia", "Music", "Dua Lipa", "Unknown", 9.6f));
 
         store.addMedia(new Book(1, "The Hunger Games", "Young Adult", 5.5f));
         store.addMedia(new Book(2, "Catching Fire", "Young Adult", 4.9f));
-        store.addMedia(new Book(3, "Mockingbird", "Young Adult", 5.1f));
 
         new StoreManagerScreen(store);
     }

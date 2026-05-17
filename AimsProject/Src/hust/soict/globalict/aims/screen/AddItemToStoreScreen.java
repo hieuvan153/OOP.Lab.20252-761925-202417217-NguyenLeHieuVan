@@ -51,7 +51,7 @@ public abstract class AddItemToStoreScreen extends JFrame {
         addBookMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new addBooktoStoreScreen(store);
+                new AddBookToStoreScreen(store);
                 dispose();
             }
         });
@@ -61,7 +61,7 @@ public abstract class AddItemToStoreScreen extends JFrame {
         addCDMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new addCDMenu(store);
+                new AddCompactDiscToStoreScreen(store);
                 dispose();
             }
         });
@@ -71,7 +71,7 @@ public abstract class AddItemToStoreScreen extends JFrame {
         addDVDMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new addDVDMenu(store);
+                new AddDigitalVideoDiscToStoreScreen(store);
                 dispose();
             }
         });
