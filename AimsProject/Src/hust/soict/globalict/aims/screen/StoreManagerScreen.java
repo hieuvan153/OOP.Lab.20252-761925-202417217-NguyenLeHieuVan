@@ -1,9 +1,6 @@
 package hust.soict.globalict.aims.screen;
 
-import hust.soict.globalict.aims.media.Book;
-import hust.soict.globalict.aims.media.CompactDisc;
-import hust.soict.globalict.aims.media.DigitalVideoDisc;
-import hust.soict.globalict.aims.media.Media;
+import hust.soict.globalict.aims.media.*;
 import hust.soict.globalict.aims.store.Store;
 
 import javax.swing.*;
@@ -101,11 +98,10 @@ public class StoreManagerScreen extends JFrame {
 
     JPanel createCenter() {
         JPanel center = new JPanel();
-        center.setLayout(new GridLayout(3, 3, 2, 2));
+        center.setLayout(new GridLayout(0, 3, 2, 2));
 
         ArrayList<Media> mediaInStore = store.getItemsInStore();
-        int limit = Math.min(mediaInStore.size(), 9);
-        for (int i = 0; i < limit; i++) {
+        for (int i = 0; i < mediaInStore.size(); i++) {
             MediaStore cell = new MediaStore(mediaInStore.get(i));
             center.add(cell);
         }
@@ -115,6 +111,15 @@ public class StoreManagerScreen extends JFrame {
 
     public static void main(String[] args) {
         Store store = new Store();
+        store.addMedia(new DigitalVideoDisc("The Dark Knight", "Action", "Christopher Nolan", 152, 23.99));
+        store.addMedia(new DigitalVideoDisc("Avatar", "Science Fiction", "James Cameron", 162, 29.50));
+        store.addMedia(new DigitalVideoDisc("Jurassic Park", "Science Fiction", "Steven Spielberg", 127, 21.99));
+        store.addMedia(new DigitalVideoDisc("Finding Nemo", "Animation", 16.99));
+        store.addMedia(new Book(2, "How not to be wrong", "Math", 10.56));
+        CompactDisc cd = new CompactDisc(1, "Frank Sinatra", "Music", "Various", "Frank Sinatra", 16.99);
+        cd.addTrack(new Track("Fly Me to The Moon", 148));
+        cd.addTrack(new Track("Jingle Bells", 121));
+        store.addMedia(cd);
 
         store.addMedia(new DigitalVideoDisc("Harry Potter and the Philosopher's Stone (2001)", "Fantasy", "Chris Columbus", 152, 3.0f));
         store.addMedia(new DigitalVideoDisc("Harry Potter and the Chamber of Secrets (2002)", "Fantasy", "Chris Columbus", 161, 3.5f));
