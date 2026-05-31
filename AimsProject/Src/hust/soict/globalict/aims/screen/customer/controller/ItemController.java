@@ -63,7 +63,7 @@ public class ItemController {
     void btnPlayClicked(ActionEvent event) {
         if (media instanceof Playable) {
             ((Playable) media).play();
-            showInfo("Playing", "Now playing" + media.getTitle());
+            showInfo("Playing", "Now playing " + media.getTitle());
         } /* catch (PlayerException ex) {
             showError("Playback Error", ex.getMessage());
         } */

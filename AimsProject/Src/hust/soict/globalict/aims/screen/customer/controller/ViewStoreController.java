@@ -11,16 +11,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
+import javafx.event.ActionEvent;
 import java.io.IOException;
 
 public class ViewStoreController {
     private Store store;
     private Cart cart;
 
-    public ViewStoreController(Store store, Cart cart) {
+    public ViewStoreController(Store store) {
         this.store = store;
-        this.cart = cart;
     }
 
     @FXML
@@ -57,6 +56,6 @@ public class ViewStoreController {
 
     @FXML
     void btnViewCartPressed(ActionEvent event) {
-
+        System.out.println("View Cart is pressed.");
     }
 }
