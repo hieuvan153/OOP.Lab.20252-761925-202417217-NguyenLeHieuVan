@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -11,23 +12,20 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.geometry.Insets?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefWidth="1024" prefHeight="768">
+<BorderPane prefHeight="768" prefWidth="1024" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/26">
 
    <top>
       <HBox alignment="CENTER">
          <BorderPane.margin>
-            <Insets left="20" right="20" top="0" bottom="0" />
+            <Insets bottom="0" left="20" right="20" top="0" />
          </BorderPane.margin>
          <padding>
             <Insets topRightBottomLeft="0" />
          </padding>
-         <Label text="Cart" style="-fx-font-size: 50px; -fx-text-fill: #004cff;" prefHeight="100" />
+         <Label prefHeight="100" style="-fx-font-size: 50px; -fx-text-fill: #004cff;" text="Cart" />
          <Region HBox.hgrow="ALWAYS" />
-         <Button text="View Store"
-                 prefWidth="100" prefHeight="50"
-                 onAction="#btnViewStorePressed" />
+         <Button onAction="#btnViewStorePressed" prefHeight="50" prefWidth="100" text="View Store" />
       </HBox>
    </top>
 
@@ -43,20 +41,20 @@
             </padding>
             <Label text="Filter" />
             <TextField fx:id="tfFilter" prefWidth="150" />
-            <RadioButton text="By ID" selected="true" fx:id="radioBtnFilterId">
+            <RadioButton fx:id="radioBtnFilterId" selected="true" text="By ID">
                <toggleGroup>
                   <ToggleGroup fx:id="filterCategory" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton text="By Title" toggleGroup="$filterCategory" fx:id="radioBtnFilterTitle" />
+            <RadioButton fx:id="radioBtnFilterTitle" text="By Title" toggleGroup="$filterCategory" />
          </HBox>
 
          <TableView fx:id="tblMedia" VBox.vgrow="ALWAYS">
             <columns>
-               <TableColumn fx:id="colMediaId" text="ID" prefWidth="60" />
-               <TableColumn fx:id="colMediaTitle" text="Title" prefWidth="380" />
-               <TableColumn fx:id="colMediaCategory" text="Category" prefWidth="150" />
-               <TableColumn fx:id="colMediaCost" text="Cost" prefWidth="100" />
+               <TableColumn fx:id="colMediaId" prefWidth="150.0" text="ID" />
+               <TableColumn fx:id="colMediaTitle" prefWidth="433.0" text="Title" />
+               <TableColumn fx:id="colMediaCategory" prefWidth="225.0" text="Category" />
+               <TableColumn fx:id="colMediaCost" prefWidth="175.0" text="Cost" />
             </columns>
          </TableView>
 
@@ -64,25 +62,19 @@
             <padding>
                <Insets top="10" />
             </padding>
-            <Button fx:id="btnPlay" text="Play"
-                    prefWidth="60"
-                    onAction="#btnPlayPressed" />
-            <Button fx:id="btnRemove" text="Remove"
-                    prefWidth="60"
-                    onAction="#btnRemovePressed" />
+            <Button fx:id="btnPlay" onAction="#btnPlayPressed" prefWidth="60" text="Play" />
+            <Button fx:id="btnRemove" onAction="#btnRemovePressed" prefWidth="60" text="Remove" />
          </HBox>
       </VBox>
    </center>
 
    <bottom>
-      <VBox alignment="TOP_CENTER" spacing="30" prefHeight="200">
+      <VBox alignment="TOP_CENTER" prefHeight="200" spacing="30">
          <HBox alignment="CENTER">
-            <Label text="Total: " style="-fx-font-size: 24px; -fx-font-weight: bold;" />
-            <Label fx:id="costLabel" text="0 $" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Total: " />
+            <Label fx:id="costLabel" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="0 $" />
          </HBox>
-         <Button text="Place Order"
-                 style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: #004cff;"
-                 onAction="#btnPlaceOrderPressed" />
+         <Button onAction="#btnPlaceOrderPressed" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: #004cff;" text="Place Order" />
       </VBox>
    </bottom>
 </BorderPane>
