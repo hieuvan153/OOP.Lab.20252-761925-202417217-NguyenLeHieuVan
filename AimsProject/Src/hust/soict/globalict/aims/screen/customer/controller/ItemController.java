@@ -51,12 +51,12 @@ public class ItemController {
             return;
         }
 
-        try {
+        // try {
             cart.addMedia(media);
             showInfo("Added to cart", "\"" + media.getTitle() + "\" has been added to your cart.");
-        } catch (LimitExceededException ex) {
+        /* } catch (LimitExceededException ex) {
             showError("Cart Full", ex.getMessage());
-        }
+        } */
     }
 
     @FXML
@@ -64,9 +64,9 @@ public class ItemController {
         if (media instanceof Playable) {
             ((Playable) media).play();
             showInfo("Playing", "Now playing" + media.getTitle());
-        } catch (PlayerException ex) {
+        } /* catch (PlayerException ex) {
             showError("Playback Error", ex.getMessage());
-        }
+        } */
     }
 
     private void showInfo(String title, String content) {
