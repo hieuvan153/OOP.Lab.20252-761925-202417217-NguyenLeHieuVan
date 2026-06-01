@@ -1,8 +1,9 @@
 package hust.soict.globalict.aims.media;
 import hust.soict.globalict.aims.exception.InvalidInputException;
 import java.util.Comparator;
+import java.util.Objects;
 
-public abstract class Media {
+public abstract class Media implements Comparable<Media> {
     public static final Comparator<Media> COMPARE_BY_TITLE_COST = new MediaComparatorByTitleCost();
     public static final Comparator<Media> COMPARE_BY_COST_TITLE = new MediaComparatorByCostTitle();
 
@@ -43,10 +44,39 @@ public abstract class Media {
         if (this == obj) {
             return true;
         }
-        if ((obj == null) || (!(obj instanceof Media))) {
+        if (obj == null || !(obj instanceof Media)) {
             return false;
         }
         Media other = (Media) obj;
-        return this.getTitle() != null && this.getTitle().equalsIgnoreCase(other.getTitle());
+        boolean sameTitle = this.title != null
+                && other.title != null
+                && this.title.equalsIgnoreCase(other.title);
+        return sameTitle && Double.compare(this.cost, other.cost) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title == null ? null : title.toLowerCase(), cost);
+    }
+
+    @Override
+    public int compareTo(Media other) {
+        if (other == null) {
+            throw new NullPointerException("Cannot compare to null Media");
+        }
+        if (this.title == null && other.title == null) {
+            return Double.compare(this.cost, other.cost);
+        }
+        if (this.title == null) {
+            return -1;
+        }
+        if (other.title == null) {
+            return 1;
+        }
+        int titleCompare = this.title.compareToIgnoreCase(other.title);
+        if (titleCompare != 0) {
+            return titleCompare;
+        }
+        return Double.compare(this.cost, other.cost);
     }
 }
