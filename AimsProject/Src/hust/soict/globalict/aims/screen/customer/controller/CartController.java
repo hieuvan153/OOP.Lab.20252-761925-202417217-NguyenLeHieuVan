@@ -3,8 +3,10 @@ package hust.soict.globalict.aims.screen.customer.controller;
 import hust.soict.globalict.aims.cart.Cart;
 import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.media.Playable;
+import hust.soict.globalict.aims.store.Store;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,9 +57,11 @@ public class CartController {
     @FXML
     private TextField tfFilter;
 
+    private Store store;
     private Cart cart;
 
-    public CartController(Cart cart) {
+    public CartController(Store store, Cart cart) {
+        this.store = store;
         this.cart = cart;
     }
 
@@ -71,6 +75,9 @@ public class CartController {
         if (cart.getItemsOrdered() != null) {
             tblMedia.setItems(cart.getItemsOrdered());
         }
+
+        cart.getItemsOrdered().addListener((ListChangeListener<Media>) change -> updateCostLabel());
+        updateCostLabel();
 
         btnPlay.setVisible(false);
         btnRemove.setVisible(false);
@@ -88,6 +95,10 @@ public class CartController {
                 showFilteredMedia(newValue);
             }
         });
+    }
+
+    private void updateCostLabel() {
+        costLabel.setText(String.format("%.1f $", cart.totalCost()));
     }
 
     void updateButtonBar(Media media) {
@@ -138,6 +149,8 @@ public class CartController {
                 return false;
             });
         }
+
+        tblMedia.setItems(filteredData);
     }
 }
 
