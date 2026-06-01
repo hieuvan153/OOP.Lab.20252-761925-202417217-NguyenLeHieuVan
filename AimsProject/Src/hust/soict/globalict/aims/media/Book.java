@@ -1,4 +1,6 @@
 package hust.soict.globalict.aims.media;
+import hust.soict.globalict.aims.exception.InvalidInputException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,7 @@ public class Book extends Media {
         super();
     }
 
-    public Book(int id, String title, String category, double cost) {
+    public Book(int id, String title, String category, double cost) throws InvalidInputException {
         super(id, title, category, cost);
     }
 
@@ -22,13 +24,12 @@ public class Book extends Media {
         }
     }
 
-    public void removeAuthor(String authorName) {
-        if (authors.contains(authorName)) {
-            authors.remove(authorName);
-            System.out.println("Author has been removed: " + authorName);
-        } else {
-            System.out.println("Author " + authorName + " has not existed");
+    public void removeAuthor(String authorName) throws InvalidInputException {
+        if (!authors.contains(authorName)) {
+            throw new InvalidInputException("ERROR: Author \"" + authorName + "\" is not listed in this book");
         }
+        authors.remove(authorName);
+        System.out.println("Author has been removed: " + authorName);
     }
 
     @Override

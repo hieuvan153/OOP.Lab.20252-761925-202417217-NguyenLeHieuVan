@@ -1,6 +1,7 @@
 package hust.soict.globalict.aims.screen.customer.controller;
 
 import hust.soict.globalict.aims.cart.Cart;
+import hust.soict.globalict.aims.exception.InvalidInputException;
 import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.media.Playable;
 import hust.soict.globalict.aims.store.Store;
@@ -139,10 +140,14 @@ public class CartController {
     void btnRemovePressed(ActionEvent event) {
         Media selected = tblMedia.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            cart.removeMedia(selected);
-            updateCostLabel();
+            try {
+                cart.removeMedia(selected);
+            } catch (InvalidInputException e) {
+                showError("Remove Error", e.getMessage());
+            }
         }
     }
+
 
     @FXML
     void btnViewStorePressed(ActionEvent event) {

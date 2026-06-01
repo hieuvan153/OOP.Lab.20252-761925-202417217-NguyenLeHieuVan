@@ -1,4 +1,5 @@
 package hust.soict.globalict.aims.cart;
+import hust.soict.globalict.aims.exception.InvalidInputException;
 import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.media.MediaComparatorByCostTitle;
 import javafx.collections.FXCollections;
@@ -25,14 +26,15 @@ public class Cart {
 		}
 	}
 
-	public void removeMedia(Media media) {
+	public void removeMedia(Media media) throws InvalidInputException {
 		if (!itemsOrdered.contains(media)) {
-			System.out.println("The media is not in the cart");
-		} else {
-			itemsOrdered.remove(media);
-			System.out.println("The media is successfully removed");
+			throw new InvalidInputException(
+					"ERROR: Media \"" + media.getTitle() + "\" is not in the cart");
 		}
+		itemsOrdered.remove(media);
+		System.out.println("The media is successfully removed");
 	}
+
 
 	public void print() {
 		System.out.println("***********************************************CART***********************************************");

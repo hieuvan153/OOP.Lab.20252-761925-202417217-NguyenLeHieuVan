@@ -1,12 +1,14 @@
 package hust.soict.globalict.aims.media;
 
+import hust.soict.globalict.aims.exception.InvalidInputException;
+
 import java.util.ArrayList;
 
 public class CompactDisc extends Disc implements Playable {
     private String artist;
     private ArrayList<Track> tracks = new ArrayList<Track>();
 
-    public CompactDisc(int id, String title, String category, String director, String artist, double cost) {
+    public CompactDisc(int id, String title, String category, String director, String artist, double cost) throws InvalidInputException {
         super(id, title, category, director, 0, cost);
         this.artist = artist;
     }
@@ -24,13 +26,12 @@ public class CompactDisc extends Disc implements Playable {
         }
     }
 
-    public void removeTrack(Track track) {
+    public void removeTrack(Track track) throws InvalidInputException {
         if (!tracks.contains(track)) {
-            System.out.println("The track does not exist");
-        } else {
-            tracks.remove(track);
-            System.out.println("The track has been removed");
+            throw new InvalidInputException("ERROR: Track \"" + track.getTitle() + "\" does not exist in this CD");
         }
+        tracks.remove(track);
+        System.out.println("The track has been removed");
     }
 
     @Override

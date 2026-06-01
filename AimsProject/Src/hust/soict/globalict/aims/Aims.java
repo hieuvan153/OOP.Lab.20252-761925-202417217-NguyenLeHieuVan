@@ -1,7 +1,12 @@
 package hust.soict.globalict.aims;
+
+import hust.soict.globalict.aims.exception.InvalidInputException;
+import hust.soict.globalict.aims.exception.LimitExceededException;
+import hust.soict.globalict.aims.exception.PlayerException;
 import hust.soict.globalict.aims.media.*;
 import hust.soict.globalict.aims.cart.Cart;
 import hust.soict.globalict.aims.store.Store;
+
 import java.util.Scanner;
 
 public class Aims {
@@ -10,15 +15,19 @@ public class Aims {
 	public static Scanner sc = new Scanner(System.in);
 
 	public static void testData() {
-		store.addMedia(new DigitalVideoDisc("The Dark Knight", "Action", "Christopher Nolan", 152, 23.99));
-		store.addMedia(new DigitalVideoDisc("Avatar", "Science Fiction", "James Cameron", 162, 29.50));
-		store.addMedia(new DigitalVideoDisc("Jurassic Park", "Science Fiction", "Steven Spielberg", 127, 21.99));
-		store.addMedia(new DigitalVideoDisc("Finding Nemo", "Animation", 16.99));
-		store.addMedia(new Book(2, "How not to be wrong", "Math", 10.56));
-		CompactDisc cd = new CompactDisc(1, "Frank Sinatra", "Music", "Various", "Frank Sinatra", 16.99);
-		cd.addTrack(new Track("Fly Me to The Moon", 148));
-		cd.addTrack(new Track("Jingle Bells", 121));
-		store.addMedia(cd);
+		try {
+			store.addMedia(new DigitalVideoDisc("The Dark Knight", "Action", "Christopher Nolan", 152, 23.99));
+			store.addMedia(new DigitalVideoDisc("Avatar", "Science Fiction", "James Cameron", 162, 29.50));
+			store.addMedia(new DigitalVideoDisc("Jurassic Park", "Science Fiction", "Steven Spielberg", 127, 21.99));
+			store.addMedia(new DigitalVideoDisc("Finding Nemo", "Animation", 16.99));
+			store.addMedia(new Book(2, "How not to be wrong", "Math", 10.56));
+			CompactDisc cd = new CompactDisc(1, "Frank Sinatra", "Music", "Various", "Frank Sinatra", 16.99);
+			cd.addTrack(new Track("Fly Me to The Moon", 148));
+			cd.addTrack(new Track("Jingle Bells", 121));
+			store.addMedia(cd);
+		} catch (InvalidInputException | LimitExceededException e) {
+			System.out.println("Error loading test data: " + e.getMessage());
+		}
 	}
 
 	public static void main(String[] args) {
@@ -71,9 +80,13 @@ public class Aims {
 					if (mediaAdd == null) {
 						System.out.println("The media is not found");
 					} else {
-						cart.addMedia(mediaAdd);
-						System.out.println("The media is added successfully");
-						System.out.println("Current number of items in cart: " + cart.getSize());
+						try {
+							cart.addMedia(mediaAdd);
+							System.out.println("The media is added successfully");
+							System.out.println("Current number of items in cart: " + cart.getSize());
+						} catch (LimitExceededException e) {
+							System.out.println(e.getMessage());
+						}
 					}
 					break;
 				case 3:
@@ -108,13 +121,21 @@ public class Aims {
 
 				switch (choice) {
 					case 1:
-						cart.addMedia(media);
-						System.out.println("The media is added to the cart");
-						System.out.println("Current number of items in cart: " + cart.getSize());
+						try {
+							cart.addMedia(media);
+							System.out.println("The media is added to the cart");
+							System.out.println("Current number of items in cart: " + cart.getSize());
+						} catch (LimitExceededException e) {
+							System.out.println(e.getMessage());
+						}
 						break;
 					case 2:
 						if (media instanceof Playable) {
-							((Playable) media).play();
+							try {
+								((Playable) media).play();
+							} catch (PlayerException e) {
+								System.out.println("Cannot play: " + e.getMessage());
+							}
 						} else {
 							System.out.println("The media cannot be played");
 						}
@@ -144,7 +165,11 @@ public class Aims {
 			System.out.println("The media is not found");
 		} else {
 			if (m instanceof Playable) {
-				((Playable) m).play();
+				try {
+					((Playable) m).play();
+				} catch (PlayerException e) {
+					System.out.println("Cannot play: " + e.getMessage());
+				}
 			} else {
 				System.out.println("The media cannot be played");
 			}
@@ -177,17 +202,22 @@ public class Aims {
 					double costAdd = sc.nextDouble();
 					sc.nextLine();
 
-					Media newMedia = null;
-					if (type == 1) {
-						newMedia = new DigitalVideoDisc(titleAdd, categoryAdd, costAdd);
-					} else if (type == 2) {
-						newMedia = new CompactDisc(store.getSize() + 1, titleAdd, categoryAdd, "", "", costAdd);
-					} else if (type == 3) {
-						newMedia = new Book(store.getSize() + 1, titleAdd, categoryAdd, costAdd);
-					}
-
-					if (newMedia != null) {
-						store.addMedia(newMedia);
+					try {
+						Media newMedia = null;
+						if (type == 1) {
+							newMedia = new DigitalVideoDisc(titleAdd, categoryAdd, costAdd);
+						} else if (type == 2) {
+							newMedia = new CompactDisc(store.getSize() + 1, titleAdd, categoryAdd, "", "", costAdd);
+						} else if (type == 3) {
+							newMedia = new Book(store.getSize() + 1, titleAdd, categoryAdd, costAdd);
+						}
+						if (newMedia != null) {
+							store.addMedia(newMedia);
+						}
+					} catch (InvalidInputException e) {
+						System.out.println(e.getMessage());
+					} catch (LimitExceededException e) {
+						System.out.println(e.getMessage());
 					}
 					break;
 				case 2:
@@ -195,7 +225,11 @@ public class Aims {
 					String titleRemove = sc.nextLine();
 					Media mediaRemove = store.searchByTitle(titleRemove);
 					if (mediaRemove != null) {
-						store.removeMedia(mediaRemove);
+						try {
+							store.removeMedia(mediaRemove);
+						} catch (InvalidInputException e) {
+							System.out.println(e.getMessage());
+						}
 					} else {
 						System.out.println("The media is not found");
 					}
@@ -252,7 +286,11 @@ public class Aims {
 					String titleRemove = sc.nextLine();
 					Media m = cart.searchByTitle(titleRemove);
 					if (m != null) {
-						cart.removeMedia(m);
+						try {
+							cart.removeMedia(m);
+						} catch (InvalidInputException e) {
+							System.out.println(e.getMessage());
+						}
 					} else {
 						System.out.println("The media is not found");
 					}
@@ -274,10 +312,10 @@ public class Aims {
 	}
 
 	public static void showMenu() {
-		System.out.println ("AIMS: ");
+		System.out.println("AIMS: ");
 		System.out.println("--------------------------------");
 		System.out.println("1. View store");
-		System.out.println("2. Update store") ;
+		System.out.println("2. Update store");
 		System.out.println("3. See current cart");
 		System.out.println("0. Exit");
 		System.out.println("--------------------------------");
@@ -287,7 +325,7 @@ public class Aims {
 	public static void storeMenu() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
-		System.out.println("1. See a media’s details");
+		System.out.println("1. See a media's details");
 		System.out.println("2. Add a media to cart");
 		System.out.println("3. Play a media");
 		System.out.println("4. See current cart");

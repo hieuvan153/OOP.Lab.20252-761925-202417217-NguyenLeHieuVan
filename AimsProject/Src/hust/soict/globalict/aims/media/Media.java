@@ -1,4 +1,5 @@
 package hust.soict.globalict.aims.media;
+import hust.soict.globalict.aims.exception.InvalidInputException;
 import java.util.Comparator;
 
 public abstract class Media {
@@ -14,8 +15,10 @@ public abstract class Media {
         super();
     }
 
-    public Media(int id, String title, String category, double cost) {
-        super();
+    public Media(int id, String title, String category, double cost) throws InvalidInputException {
+        if (cost < 0) {
+            throw new InvalidInputException("ERROR: Media cost cannot be negative");
+        }
         this.id = id;
         this.title = title;
         this.category = category;
