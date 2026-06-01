@@ -11,7 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
-import javax.naming.LimitExceededException;
+import hust.soict.globalict.aims.exception.LimitExceededException;
+import hust.soict.globalict.aims.exception.PlayerException;
 
 public class ItemController {
     @FXML
@@ -51,22 +52,24 @@ public class ItemController {
             return;
         }
 
-        // try {
+        try {
             cart.addMedia(media);
             showInfo("Added to cart", "\"" + media.getTitle() + "\" has been added to your cart.");
-        /* } catch (LimitExceededException ex) {
+        } catch (LimitExceededException ex) {
             showError("Cart Full", ex.getMessage());
-        } */
+        }
     }
 
     @FXML
     void btnPlayClicked(ActionEvent event) {
         if (media instanceof Playable) {
-            ((Playable) media).play();
-            showInfo("Playing", "Now playing " + media.getTitle());
-        } /* catch (PlayerException ex) {
-            showError("Playback Error", ex.getMessage());
-        } */
+            try {
+                ((Playable) media).play();
+                showInfo("Playing", "Now playing " + media.getTitle());
+            } catch (PlayerException ex) {
+                showError("Playback Error", ex.getMessage());
+            }
+        }
     }
 
     private void showInfo(String title, String content) {

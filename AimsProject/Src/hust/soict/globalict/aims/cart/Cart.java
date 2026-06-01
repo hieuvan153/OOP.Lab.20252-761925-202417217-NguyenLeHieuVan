@@ -1,5 +1,6 @@
 package hust.soict.globalict.aims.cart;
 import hust.soict.globalict.aims.exception.InvalidInputException;
+import hust.soict.globalict.aims.exception.LimitExceededException;
 import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.media.MediaComparatorByCostTitle;
 import javafx.collections.FXCollections;
@@ -16,9 +17,9 @@ public class Cart {
 		return itemsOrdered;
 	}
 
-	public void addMedia(Media media) {
+	public void addMedia(Media media) throws LimitExceededException {
 		if (itemsOrdered.size() >= MAX_NUMBERS_ORDERED) {
-			System.out.println("The cart is full");
+			throw new LimitExceededException("The cart is full");
 		} else if (itemsOrdered.contains(media)) {
 			System.out.println("The media has already been added");
 		} else {

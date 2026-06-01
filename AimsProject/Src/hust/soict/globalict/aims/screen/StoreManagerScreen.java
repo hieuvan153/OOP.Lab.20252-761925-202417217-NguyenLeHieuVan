@@ -1,5 +1,7 @@
 package hust.soict.globalict.aims.screen;
 
+import hust.soict.globalict.aims.exception.InvalidInputException;
+import hust.soict.globalict.aims.exception.LimitExceededException;
 import hust.soict.globalict.aims.media.*;
 import hust.soict.globalict.aims.store.Store;
 
@@ -111,24 +113,28 @@ public class StoreManagerScreen extends JFrame {
 
     public static void main(String[] args) {
         Store store = new Store();
-        store.addMedia(new DigitalVideoDisc("The Dark Knight", "Action", "Christopher Nolan", 152, 23.99));
-        store.addMedia(new DigitalVideoDisc("Avatar", "Science Fiction", "James Cameron", 162, 29.50));
-        store.addMedia(new DigitalVideoDisc("Jurassic Park", "Science Fiction", "Steven Spielberg", 127, 21.99));
-        store.addMedia(new DigitalVideoDisc("Finding Nemo", "Animation", 16.99));
-        store.addMedia(new Book(2, "How not to be wrong", "Math", 10.56));
-        CompactDisc cd = new CompactDisc(1, "Frank Sinatra", "Music", "Various", "Frank Sinatra", 16.99);
-        cd.addTrack(new Track("Fly Me to The Moon", 148));
-        cd.addTrack(new Track("Jingle Bells", 121));
-        store.addMedia(cd);
+        try {
+            store.addMedia(new DigitalVideoDisc("The Dark Knight", "Action", "Christopher Nolan", 152, 23.99));
+            store.addMedia(new DigitalVideoDisc("Avatar", "Science Fiction", "James Cameron", 162, 29.50));
+            store.addMedia(new DigitalVideoDisc("Jurassic Park", "Science Fiction", "Steven Spielberg", 127, 21.99));
+            store.addMedia(new DigitalVideoDisc("Finding Nemo", "Animation", 16.99));
+            store.addMedia(new Book(2, "How not to be wrong", "Math", 10.56));
+            CompactDisc cd = new CompactDisc(1, "Frank Sinatra", "Music", "Various", "Frank Sinatra", 16.99);
+            cd.addTrack(new Track("Fly Me to The Moon", 148));
+            cd.addTrack(new Track("Jingle Bells", 121));
+            store.addMedia(cd);
 
-        store.addMedia(new DigitalVideoDisc("Harry Potter and the Philosopher's Stone (2001)", "Fantasy", "Chris Columbus", 152, 3.0f));
-        store.addMedia(new DigitalVideoDisc("Harry Potter and the Chamber of Secrets (2002)", "Fantasy", "Chris Columbus", 161, 3.5f));
+            store.addMedia(new DigitalVideoDisc("Harry Potter and the Philosopher's Stone (2001)", "Fantasy", "Chris Columbus", 152, 3.0));
+            store.addMedia(new DigitalVideoDisc("Harry Potter and the Chamber of Secrets (2002)", "Fantasy", "Chris Columbus", 161, 3.5));
 
-        store.addMedia(new CompactDisc(1, "Fetch the Bolt Cutters", "Music", "Fiona Apple", "Unknown", 10.39f));
-        store.addMedia(new CompactDisc(2, "Future Nostalgia", "Music", "Dua Lipa", "Unknown", 9.6f));
+            store.addMedia(new CompactDisc(1, "Fetch the Bolt Cutters", "Music", "Fiona Apple", "Unknown", 10.39));
+            store.addMedia(new CompactDisc(2, "Future Nostalgia", "Music", "Dua Lipa", "Unknown", 9.6));
 
-        store.addMedia(new Book(1, "The Hunger Games", "Young Adult", 5.5f));
-        store.addMedia(new Book(2, "Catching Fire", "Young Adult", 4.9f));
+            store.addMedia(new Book(1, "The Hunger Games", "Young Adult", 5.5));
+            store.addMedia(new Book(2, "Catching Fire", "Young Adult", 4.9));
+        } catch (Exception e) {
+            System.out.println("Error loading store data: " + e.getMessage());
+        }
 
         new StoreManagerScreen(store);
     }

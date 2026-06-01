@@ -2,6 +2,7 @@ package hust.soict.globalict.aims.screen.customer.controller;
 
 import hust.soict.globalict.aims.cart.Cart;
 import hust.soict.globalict.aims.exception.InvalidInputException;
+import hust.soict.globalict.aims.exception.PlayerException;
 import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.media.Playable;
 import hust.soict.globalict.aims.store.Store;
@@ -131,8 +132,12 @@ public class CartController {
     void btnPlayPressed(ActionEvent event) {
         Media selected = tblMedia.getSelectionModel().getSelectedItem();
         if (selected instanceof Playable) {
-            ((Playable) selected).play();
-            showInfo("Playing", "Now playing: " + selected.getTitle());
+            try {
+                ((Playable) selected).play();
+                showInfo("Playing", "Now playing: " + selected.getTitle());
+            } catch (PlayerException e) {
+                showError("Playback Error", e.getMessage());
+            }
         }
     }
 

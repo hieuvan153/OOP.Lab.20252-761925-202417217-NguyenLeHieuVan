@@ -1,6 +1,8 @@
 package hust.soict.globalict.test.screen.customer.store;
 
 import hust.soict.globalict.aims.cart.Cart;
+import hust.soict.globalict.aims.exception.InvalidInputException;
+import hust.soict.globalict.aims.exception.LimitExceededException;
 import hust.soict.globalict.aims.media.*;
 import hust.soict.globalict.aims.screen.customer.controller.ViewStoreController;
 import hust.soict.globalict.aims.store.Store;
@@ -33,20 +35,24 @@ public class TestViewStoreScreen extends Application {
         store = new Store();
         cart = new Cart();
 
-        store.addMedia(new DigitalVideoDisc("Harry Potter and the Philosopher's Stone (2001)", "Fantasy", "Chris Columbus", 152, 3.0));
-        store.addMedia(new DigitalVideoDisc("Harry Potter and the Chamber of Secrets (2002)", "Fantasy", "Chris Columbus", 161, 3.5));
-        store.addMedia(new DigitalVideoDisc("Harry Potter and the Prisoner of Azkaban (2004)", "Fantasy", "Alfonso Cuaron", 141, 5.0));
-        store.addMedia(new DigitalVideoDisc("Harry Potter and the Goblet of Fire (2005)", "Fantasy", "Mike Newell", 157, 4.5));
-        store.addMedia(new DigitalVideoDisc("Harry Potter and the Order of the Phoenix (2007)", "Fantasy", "David Yates", 138, 6.5));
-        store.addMedia(new DigitalVideoDisc("Harry Potter and the Half-Blood Prince (2009)", "Fantasy", "David Yates", 153, 5.8));
-        store.addMedia(new DigitalVideoDisc("Harry Potter and the Deathly Hallows - Part 1 (2010)", "Fantasy", "David Yates", 146, 6.3));
-        store.addMedia(new DigitalVideoDisc("Harry Potter and the Deathly Hallows - Part 2 (2011)", "Fantasy", "David Yates", 130, 7.0));
-        store.addMedia(new Book(1, "Green Eggs and Ham", "Children", 3.5));
+        try {
+            store.addMedia(new DigitalVideoDisc("Harry Potter and the Philosopher's Stone (2001)", "Fantasy", "Chris Columbus", 152, 3.0));
+            store.addMedia(new DigitalVideoDisc("Harry Potter and the Chamber of Secrets (2002)", "Fantasy", "Chris Columbus", 161, 3.5));
+            store.addMedia(new DigitalVideoDisc("Harry Potter and the Prisoner of Azkaban (2004)", "Fantasy", "Alfonso Cuaron", 141, 5.0));
+            store.addMedia(new DigitalVideoDisc("Harry Potter and the Goblet of Fire (2005)", "Fantasy", "Mike Newell", 157, 4.5));
+            store.addMedia(new DigitalVideoDisc("Harry Potter and the Order of the Phoenix (2007)", "Fantasy", "David Yates", 138, 6.5));
+            store.addMedia(new DigitalVideoDisc("Harry Potter and the Half-Blood Prince (2009)", "Fantasy", "David Yates", 153, 5.8));
+            store.addMedia(new DigitalVideoDisc("Harry Potter and the Deathly Hallows - Part 1 (2010)", "Fantasy", "David Yates", 146, 6.3));
+            store.addMedia(new DigitalVideoDisc("Harry Potter and the Deathly Hallows - Part 2 (2011)", "Fantasy", "David Yates", 130, 7.0));
+            store.addMedia(new Book(1, "Green Eggs and Ham", "Children", 3.5));
 
-        CompactDisc cd = new CompactDisc(1, "Frank Sinatra: Greatest Hits", "Music", "Various", "Frank Sinatra", 12.99);
-        cd.addTrack(new Track("Fly Me to The Moon", 148));
-        cd.addTrack(new Track("My Way", 273));
-        store.addMedia(cd);
+            CompactDisc cd = new CompactDisc(1, "Frank Sinatra: Greatest Hits", "Music", "Various", "Frank Sinatra", 12.99);
+            cd.addTrack(new Track("Fly Me to The Moon", 148));
+            cd.addTrack(new Track("My Way", 273));
+            store.addMedia(cd);
+        } catch (InvalidInputException | LimitExceededException e) {
+            System.out.println("Error loading store data: " + e.getMessage());
+        }
 
         launch(args);
     }
