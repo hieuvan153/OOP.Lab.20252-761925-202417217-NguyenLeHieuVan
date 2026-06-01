@@ -10,14 +10,15 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class CartController {
 
@@ -115,23 +116,48 @@ public class CartController {
 
     @FXML
     void btnPlaceOrderPressed(ActionEvent event) {
-        System.out.println("Place order button is pressed.");
+        if (cart.getSize() == 0) {
+            showInfo("Empty Cart", "There are no items in your cart");
+            return;
+        }
+
+        showInfo("Order Placed", "Your order has been placed. Total: " + cart.totalCost() + "$");
+        cart.getItemsOrdered().clear();
+        updateCostLabel();
     }
 
     @FXML
     void btnPlayPressed(ActionEvent event) {
-        System.out.println("Play button is pressed.");
+        Media selected = tblMedia.getSelectionModel().getSelectedItem();
+        if (selected instanceof Playable) {
+            ((Playable) selected).play();
+            showInfo("Playing", "Now playing: " + selected.getTitle());
+        }
     }
 
     @FXML
     void btnRemovePressed(ActionEvent event) {
-        Media media = tblMedia.getSelectionModel().getSelectedItem();
-        cart.removeMedia(media);
+        Media selected = tblMedia.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            cart.removeMedia(selected);
+            updateCostLabel();
+        }
     }
 
     @FXML
     void btnViewStorePressed(ActionEvent event) {
-        System.out.println("View Store button is pressed.");
+        try {
+            final String STORE_FXML_FILE_PATH = "/hust/soict/globalict/aims/screen/customer/view/Store.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(STORE_FXML_FILE_PATH));
+            fxmlLoader.setController(new ViewStoreController(store, cart));
+            Parent root = fxmlLoader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Store");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void showFilteredMedia(String newValue) {
@@ -151,6 +177,22 @@ public class CartController {
         }
 
         tblMedia.setItems(filteredData);
+    }
+
+    private void showInfo(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private void showError(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
 

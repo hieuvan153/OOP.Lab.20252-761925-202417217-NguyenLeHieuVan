@@ -69,7 +69,6 @@ public class ViewStoreController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-
         }
     }
 }
