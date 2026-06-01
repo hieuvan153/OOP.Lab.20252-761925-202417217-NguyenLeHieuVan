@@ -1,10 +1,11 @@
 package hust.soict.globalict.aims.media;
 
 import hust.soict.globalict.aims.exception.InvalidInputException;
+import hust.soict.globalict.aims.exception.PlayerException;
 
 public class DigitalVideoDisc extends Disc implements Playable {
 	private static int nbDigitalVideoDiscs = 0;
-	
+
 	public DigitalVideoDisc(String title) throws InvalidInputException {
 		super(++nbDigitalVideoDiscs, title, null, null, 0, 0.0);
 	}
@@ -24,13 +25,13 @@ public class DigitalVideoDisc extends Disc implements Playable {
 	}
 
 	@Override
-	public void play() {
-		if (this.getLength() <= 0) {
-			System.out.println("This DVD can't be played");
-			return;
-		} else {
+	public void play() throws PlayerException {
+		if (this.getLength() > 0) {
 			System.out.println("Playing DVD: " + this.getTitle());
 			System.out.println("DVD Length: " + this.getLength());
+		} else {
+			System.err.println("ERROR: DVD length is non-positive!");
+			throw new PlayerException("ERROR: DVD length is non-positive!");
 		}
 	}
 }

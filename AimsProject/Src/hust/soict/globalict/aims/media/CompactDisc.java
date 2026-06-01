@@ -1,6 +1,7 @@
 package hust.soict.globalict.aims.media;
 
 import hust.soict.globalict.aims.exception.InvalidInputException;
+import hust.soict.globalict.aims.exception.PlayerException;
 
 import java.util.ArrayList;
 
@@ -44,17 +45,21 @@ public class CompactDisc extends Disc implements Playable {
     }
 
     @Override
-    public void play() {
-        if (this.getLength() <= 0) {
-            System.out.println("This CD can't be played");
-            return;
-        } else {
+    public void play() throws PlayerException {
+        if (this.getLength() > 0) {
             System.out.println("Playing CD: " + getTitle());
             System.out.println("CD's Length: " + getLength());
             System.out.println("CD's Artist: " + getArtist());
-        }
-        for (Track track : tracks) {
-            track.play();
+            for (Track track : tracks) {
+                try {
+                    track.play();
+                } catch (PlayerException e) {
+                    throw e;
+                }
+            }
+        } else {
+            System.err.println("ERROR: CD length is non-positive!");
+            throw new PlayerException("ERROR: CD length is non-positive!");
         }
     }
 
