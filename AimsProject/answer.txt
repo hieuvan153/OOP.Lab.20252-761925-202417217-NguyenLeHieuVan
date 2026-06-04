@@ -1,30 +1,6 @@
-Part 16: Polymorphism with toString() method
+Question (Section 11): The Aims class must be updated to handle any exceptions generated when the play() methods are called. What happens when you don't update for them to catch?
 
-1. What are the advantages of Polymorphism?
-- Extensibility: It makes expanding the system very easy. If we create a new class inheriting from Media later (e.g., VinylRecord), we only need to override the toString() method for it. The loop printing the list above won't require a single line of code change.
+Answer:
+Since PlayerException inherits directly from `java.lang.Exception` (making it a checked exception), the Java compiler enforces that it must be explicitly handled. If you do not update the Aims class to catch this exception using a try-catch block (or delegate it using the `throws` keyword), your code will fail to compile. The compiler will output an error stating: "unreported exception PlayerException; must be caught or declared to be thrown".
 
-- Simplicity and Clean Code: It allows us to handle a collection of different objects (CD, DVD, Book) through a single common interface (the parent type Media). This helps avoid writing multiple nested if-else or switch-case statements to check the object type.
-
-2. How is Inheritance useful to achieve Polymorphism in Java?
-- Inheritance establishes an "IS-A" relationship (e.g., a Book is a Media). Thanks to this relationship, Java allows Upcasting - which is using a parent class reference variable (like Media m) to point to a child class object (like new Book()).
-
-- Inheritance also provides the mechanism for child classes to Override parent class methods. Without Inheritance, we cannot apply Polymorphism.
-
-3. What are the differences between Polymorphism and Inheritance in Java?
-- Inheritance is Structural. It is about building a hierarchy between classes and sharing attributes and methods from parent to child for the purpose of code reusability.
-
-- Polymorphism is Behavioral. It allows a single message (a method call) to trigger different behaviors depending on the actual object receiving that message (for example, calling the exact same toString() method, but a Book prints the author's name, while a CD prints the artist's name).
-
-Part 17: Sort media in the cart
-
-1. What class should implement the Comparable interface?
-The Media class should implement the Comparable<Media> interface, as it is the parent class for all media types we want to sort.
-
-2. In those classes, how should you implement the compareTo() method to reflect the ordering that we want?
-We would override the public int compareTo(Media other) method inside the Media class. We would write the logic to compare this object with the other object based on a chosen primary attribute (e.g., title) and then a secondary attribute (e.g., cost) if the primary ones are equal.
-
-3. Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach?
-No. The Comparable interface defines the natural ordering of a class, meaning it only allows for one single default sorting rule. If we need multiple distinct ways to sort the same objects (which is our exact requirement here), we must use the Comparator interface instead.
-
-4. Suppose the DVDs have a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this?
-To achieve this while sorting a mixed list of Media, we would create a custom Comparator<Media>. Inside the compare(Media m1, Media m2) method, we would use the instanceof operator to check if both objects are DigitalVideoDisc. If they are, we cast them and apply the specific logic (title -> length descending -> cost). If not, we fall back to the standard Media comparison logic.
+If the exception were unchecked (i.e., inheriting from RuntimeException) and you did not catch it, the program would compile but would crash at runtime whenever a media item with a non-positive length is played. This would abruptly terminate the thread and print a stack trace to the console. Catching the exception allows the GUI application to handle the error gracefully, such as by showing an alert dialog to the user as requested in the lab, instead of crashing the entire application.
