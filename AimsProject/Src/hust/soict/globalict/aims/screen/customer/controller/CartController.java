@@ -101,7 +101,7 @@ public class CartController {
     }
 
     private void updateCostLabel() {
-        costLabel.setText(String.format("%.1f $", cart.totalCost()));
+        costLabel.setText(String.format("%.2f $", cart.totalCost()));
     }
 
     void updateButtonBar(Media media) {
@@ -123,7 +123,8 @@ public class CartController {
             return;
         }
 
-        showInfo("Order Placed", "Your order has been placed. Total: " + cart.totalCost() + "$");
+        showInfo("Order Placed",
+                String.format("Your order has been placed. Total: %.2f $", cart.totalCost()));
         cart.getItemsOrdered().clear();
         updateCostLabel();
     }

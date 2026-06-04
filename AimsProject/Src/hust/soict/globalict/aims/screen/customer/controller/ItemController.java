@@ -5,11 +5,9 @@ import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.media.Playable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 
 import hust.soict.globalict.aims.exception.LimitExceededException;
 import hust.soict.globalict.aims.exception.PlayerException;
@@ -40,9 +38,10 @@ public class ItemController {
         lblCost.setText(media.getCost() + "$");
         if (media instanceof Playable) {
             btnPlay.setVisible(true);
+            btnPlay.setManaged(true);
         } else {
             btnPlay.setVisible(false);
-            HBox.setMargin(btnAddToCart, new Insets(0, 0, 0, 60));
+            btnPlay.setManaged(false);
         }
     }
 

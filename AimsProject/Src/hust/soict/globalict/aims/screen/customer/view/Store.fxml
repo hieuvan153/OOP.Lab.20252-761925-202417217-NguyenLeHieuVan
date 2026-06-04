@@ -40,11 +40,8 @@
       </HBox>
       <ScrollPane prefHeight="760.0" prefWidth="1024.0">
          <content>
-            <GridPane fx:id="gridPane" prefHeight="0.0" prefWidth="0.0">
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
+            <GridPane fx:id="gridPane" />
+
          </content>
       </ScrollPane>
    </children>
